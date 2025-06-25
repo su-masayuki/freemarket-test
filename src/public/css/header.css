@@ -1,0 +1,59 @@
+/* Header Container */
+.header {
+    background-color: #000;
+    padding: 10px 0;
+}
+
+/* Inner Wrapper to Center Content */
+.header__inner {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Logo Styling */
+.header__logo {
+    height: 30px;
+}
+
+/* Search Form */
+.header__search-form {
+    display: inline-block;
+    margin-left: 20px;
+}
+
+.header__search-input {
+    padding: 5px 10px;
+    border-radius: 4px;
+    border: none;
+    width: 200px;
+}
+
+/* Navigation Links */
+.header__nav {
+    display: inline-block;
+    float: right;
+}
+
+.header__link {
+    color: #fff;
+    margin-left: 20px;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.header__link:hover {
+    text-decoration: underline;
+}
+
+/* Button Styling */
+.header__button {
+    margin-left: 20px;
+    padding: 6px 12px;
+    background-color: #fff;
+    color: black;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 14px;
+}

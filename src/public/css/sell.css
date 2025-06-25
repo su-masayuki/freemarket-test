@@ -1,0 +1,110 @@
+.sell-container {
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.sell-title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.form-section {
+    margin-bottom: 30px;
+}
+
+.section-label {
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.image-upload-area {
+    width: 100%;
+    height: 180px;
+    border: 1px dashed #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fdfdfd;
+    cursor: pointer;
+}
+
+.image-upload-label {
+    color: #ff5c5c;
+    border: 1px solid #ff5c5c;
+    padding: 8px 14px;
+    border-radius: 4px;
+    background-color: #fff0f0;
+    font-size: 14px;
+}
+
+.section-heading {
+    font-size: 16px;
+    font-weight: bold;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 4px;
+    margin-bottom: 15px;
+}
+
+.category-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.category-tag {
+    padding: 5px 10px;
+    border: 1px solid #ff5c5c;
+    border-radius: 20px;
+    color: #ff5c5c;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.category-tag input {
+    display: none;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 6px;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.submit-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #ff5c5c;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.submit-button:hover {
+    background-color: #e14e4e;
+}
+
+input[type="checkbox"]:checked + label.category-tag {
+    background-color: #ff5c5c;
+    color: #ffffff;
+    border-color: #ff5c5c;
+}
