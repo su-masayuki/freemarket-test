@@ -42,11 +42,15 @@ class MypageController extends Controller
         $user->building = $request->input('building');
 
         if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('images', 'public');
+            $path = $request->file('image')->store('images/profiles', 'public');
             $user->image_path = $path;
         }
 
         $user->save();
+
+        if ($request->input('from') === 'first') {
+            return redirect('/')->with('success', 'プロフィールを更新しました');
+        }
 
         return redirect()->route('mypage')->with('success', 'プロフィールを更新しました');
     }

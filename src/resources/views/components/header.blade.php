@@ -5,8 +5,11 @@
         </a>
 
         @unless (in_array(Route::currentRouteName(), ['login', 'register', 'verification.notice']))
-            <form action="#" method="GET" class="header__search-form">
-                <input type="text" name="keyword" placeholder="なにをお探しですか？" class="header__search-input">
+            <form action="{{ route('home') }}" method="GET" class="header__search-form">
+                <input type="text" name="keyword" value="{{ request('keyword') }}" placeholder="なにをお探しですか？" class="header__search-input">
+                @if (request('page') === 'mylist')
+                    <input type="hidden" name="page" value="mylist">
+                @endif
             </form>
 
             <nav class="header__nav">

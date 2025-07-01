@@ -9,7 +9,7 @@
 
             <div class="form-group">
                 <label for="email">メールアドレス</label>
-                <input id="email" type="email" name="email" autofocus>
+                <input id="email" type="email" name="email" value="{{ old('email', request()->input('email')) }}" autofocus>
                 @if ($errors->has('email'))
                     <div class="form-error">{{ $errors->first('email') }}</div>
                 @endif

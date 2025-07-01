@@ -8,7 +8,13 @@
 <div class="purchase-container">
     <div class="purchase-main">
         <div class="item-summary">
-            <img src="{{ asset('storage/images/' . $item->image_path) }}" alt="商品画像" class="item-image">
+            @php
+                use Illuminate\Support\Str;
+                $imageSrc = Str::startsWith($item->image_path, ['http://', 'https://'])
+                    ? $item->image_path
+                    : asset('storage/' . $item->image_path);
+            @endphp
+            <img src="{{ $imageSrc }}" alt="商品画像" class="item-image">
             <div>
                 <p class="item-name">{{ $item->name }}</p>
                 <p class="item-price">¥{{ number_format($item->price) }}</p>

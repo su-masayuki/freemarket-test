@@ -112,3 +112,19 @@
     font-size: 14px;
     cursor: pointer;
 }
+
+.category-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.category-tag {
+    display: inline-block;
+    padding: 5px 15px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    background-color: #eee;
+    color: #000;
+    font-size: 14px;
+}

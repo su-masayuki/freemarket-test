@@ -32,7 +32,7 @@ class SellController extends Controller
             'price' => 'required|integer|min:1',
         ]);
 
-        $path = $request->file('image')->store('images', 'public');
+        $path = $request->file('image')->store('images/items', 'public');
 
         Item::create([
             'name' => $request->name,
@@ -42,6 +42,7 @@ class SellController extends Controller
             'image_path' => $path,
             'condition' => $request->condition,
             'user_id' => Auth::id(),
+            'category' => json_encode($request->category),
         ]);
 
         return redirect()->route('home')->with('success', '商品を出品しました');

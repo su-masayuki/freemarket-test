@@ -30,7 +30,7 @@ class ItemSeeder extends Seeder
                 'name' => 'HDD',
                 'price' => 5000,
                 'description' => '高速で信頼性の高いハードディスク',
-                'image_path' => 'Hhttps://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/HDD+Hard+Disk.jpg',
+                'image_path' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/HDD+Hard+Disk.jpg',
                 'condition' => '目立った傷や汚れなし',
                 'user_id' => $user->id,
             ],

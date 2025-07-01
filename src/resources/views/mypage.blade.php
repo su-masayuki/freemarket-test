@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @php use Illuminate\Support\Facades\Storage; @endphp
+@php use Illuminate\Support\Str; @endphp
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/mypage.css') }}">
@@ -26,7 +27,12 @@
         @foreach ($items as $item)
             <a href="{{ url('/item/' . $item->id) }}" class="item-card">
                 <div class="image-container">
-                    <img src="{{ asset('storage/images/' . $item->image_path) }}" alt="商品画像">
+                    @php
+                        $imageSrc = Str::startsWith($item->image_path, ['http://', 'https://']) 
+                            ? $item->image_path 
+                            : Storage::url($item->image_path);
+                    @endphp
+                    <img src="{{ $imageSrc }}" alt="商品画像">
                     @if ($item->is_sold)
                         <div class="sold-label">SOLD</div>
                     @endif

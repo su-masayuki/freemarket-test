@@ -10,12 +10,25 @@ class ItemController extends Controller
 {
     public function index(Request $request)
     {
+        $query = Item::query();
+
+        // 検索キーワードがある場合は部分一致検索
+        if ($request->filled('keyword')) {
+            $query->where('name', 'like', '%' . $request->keyword . '%');
+        }
+
+        // マイリストページ：セッションからいいねアイテムを取得
         if ($request->input('page') === 'mylist') {
             $likedItems = session('liked_items', []);
-            $items = Item::whereIn('id', $likedItems)->get();
+            $query->whereIn('id', $likedItems);
         } else {
-            $items = Item::all();
+            // 自分が出品した商品は除外
+            if (auth()->check()) {
+                $query->where('user_id', '!=', auth()->id());
+            }
         }
+
+        $items = $query->get();
 
         return view('index', compact('items'));
     }

@@ -39,7 +39,7 @@ Route::post('/items/{item}/like', [ItemController::class, 'like'])->name('items.
 Route::get('/purchase/address/{item}', [AddressController::class, 'edit'])->name('purchase.address.edit');
 Route::put('/purchase/address/{item}', [AddressController::class, 'update'])->name('purchase.address.update');
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', \App\Http\Middleware\MailVerifiedMiddleware::class])->group(function () {
     Route::get('/mypage', [MypageController::class, 'show'])->name('mypage');
     Route::get('/mypage/profile', [MypageController::class, 'edit'])->name('mypage.profile.edit');
     Route::put('/mypage/profile', [MypageController::class, 'update'])->name('mypage.profile.update');

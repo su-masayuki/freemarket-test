@@ -1,0 +1,41 @@
+.verify-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 75vh;
+}
+
+.verify-box {
+    text-align: center;
+}
+
+.verify-message {
+    font-weight: bold;
+    margin-bottom: 30px;
+    line-height: 1.8;
+}
+
+.verify-button {
+    background-color: #e0e0e0;
+    padding: 10px 24px;
+    font-weight: bold;
+    border-radius: 6px;
+    border: 1px solid #999;
+    cursor: pointer;
+}
+
+.verify-button:hover {
+    background-color: #ccc;
+}
+
+.resend-box {
+    margin-top: 20px;
+}
+
+.resend-link {
+    background: none;
+    border: none;
+    color: #007bff;
+    text-decoration: underline;
+    cursor: pointer;
+}

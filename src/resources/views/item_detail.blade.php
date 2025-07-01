@@ -10,7 +10,9 @@
     <div class="item-detail-wrapper">
         <div class="item-image">
             @php
-                $imageSrc = Str::startsWith($item->image_path, ['http://', 'https://']) ? $item->image_path : asset('storage/images/' . $item->image_path);
+                $imageSrc = Str::startsWith($item->image_path, ['http://', 'https://'])
+                    ? $item->image_path
+                    : asset('storage/' . ltrim($item->image_path, '/'));
             @endphp
             <img src="{{ $imageSrc }}" alt="商品画像">
         </div>
@@ -41,7 +43,19 @@
 
             <div class="item-meta">
                 <h3>商品の情報</h3>
-                <p>カテゴリー: {{ $item->category }}</p>
+                <div class="item-category">
+                    <h3>カテゴリー</h3>
+                    <div class="category-tags">
+                        @php
+                            $categories = is_string($item->category) ? json_decode($item->category, true) : [];
+                        @endphp
+                        @if (is_array($categories))
+                            @foreach ($categories as $cat)
+                                <span class="category-tag">{{ $cat }}</span>
+                            @endforeach
+                        @endif
+                    </div>
+                </div>
                 <p>商品の状態: {{ $item->condition }}</p>
             </div>
 
