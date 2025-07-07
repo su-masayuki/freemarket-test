@@ -34,15 +34,30 @@ Route::post('/purchase/{item}', [PurchaseController::class, 'store'])->name('pur
 
 
 Route::post('/item/{item}/comments', [CommentController::class, 'store'])->name('comments.store');
-Route::post('/items/{item}/like', [ItemController::class, 'like'])->name('items.like');
+Route::post('/items/{item}/like', [ItemController::class, 'like'])->middleware('auth')->name('items.like');
 
 Route::get('/purchase/address/{item}', [AddressController::class, 'edit'])->name('purchase.address.edit');
 Route::put('/purchase/address/{item}', [AddressController::class, 'update'])->name('purchase.address.update');
 
-Route::middleware(['auth', \App\Http\Middleware\MailVerifiedMiddleware::class])->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::get('/mypage', [MypageController::class, 'show'])->name('mypage');
     Route::get('/mypage/profile', [MypageController::class, 'edit'])->name('mypage.profile.edit');
     Route::put('/mypage/profile', [MypageController::class, 'update'])->name('mypage.profile.update');
     Route::get('/sell', [SellController::class, 'create'])->name('sell');
     Route::post('/sell', [SellController::class, 'store'])->name('items.store');
 });
+
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\RedirectResponse;
+
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request): RedirectResponse {
+    if ($request->user()->hasVerifiedEmail()) {
+        return redirect('/mypage/profile');
+    }
+
+    if ($request->user()->markEmailAsVerified()) {
+        event(new \Illuminate\Auth\Events\Verified($request->user()));
+    }
+
+    return redirect('/mypage/profile');
+})->middleware(['auth', 'signed'])->name('verification.verify');

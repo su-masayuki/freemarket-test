@@ -19,17 +19,30 @@
 
         <div class="item-info">
             <h2 class="item-title">{{ $item->name }}</h2>
-            <p class="brand-name">{{ $item->brand_name }}</p>
+            @if (!empty($item->brand_name))
+                <p class="brand-name">{{ $item->brand_name }}</p>
+            @endif
             <p class="price">¥{{ number_format($item->price) }} <span class="tax">（税込）</span></p>
 
             <div class="actions">
                 <form action="{{ route('items.like', $item->id) }}" method="POST" style="display: inline;">
                     @csrf
-                    <button type="submit" style="background: none; border: none; cursor: pointer;">
-                        <span>☆ {{ $item->likes_count }}</span>
+                    @php
+                        $hasLiked = auth()->user() && auth()->user()->likes->contains($item->id);
+                    @endphp
+                    <button type="submit" style="background: none; border: none; cursor: pointer;" class="">
+                        @if ($hasLiked)
+                            <img src="{{ asset('images/like_icon_red.png') }}" alt="いいね" style="width: 20px; height: 20px;">
+                        @else
+                            <img src="{{ asset('images/like_icon.png') }}" alt="いいね" style="width: 20px; height: 20px;">
+                        @endif
+                        <span>{{ $item->likes_count }}</span>
                     </button>
                 </form>
-                <span>💬 {{ $comments->count() }}</span>
+                <span>
+                    <img src="{{ asset('images/comment_icon.png') }}" alt="コメント" style="width: 20px; height: 20px;">
+                    {{ $comments->count() }}
+                </span>
             </div>
 
             <form action="{{ url('/purchase/' . $item->id) }}" method="GET">
@@ -63,7 +76,10 @@
                 <h3>コメント({{ $comments->count() }})</h3>
                 @foreach ($comments as $comment)
                     <div class="comment">
-                        <img src="{{ asset('images/default-avatar.png') }}" alt="user" class="comment-avatar">
+                        @php
+                            $profileImage = $comment->user->image_path ? asset('storage/' . ltrim($comment->user->image_path, '/')) : asset('images/default-avatar.png');
+                        @endphp
+                        <img src="{{ $profileImage }}" alt="user" class="comment-avatar">
                         <div>
                             <strong>{{ $comment->user->name }}</strong>
                             <p>{{ $comment->body }}</p>

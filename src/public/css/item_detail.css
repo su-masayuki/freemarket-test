@@ -128,3 +128,9 @@
     color: #000;
     font-size: 14px;
 }
+.liked {
+    filter: brightness(0) saturate(100%) invert(34%) sepia(94%) saturate(2891%) hue-rotate(329deg) brightness(102%) contrast(101%);
+    border: 1px solid #e14e4e;
+    border-radius: 4px;
+    padding: 2px;
+}

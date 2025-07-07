@@ -24,9 +24,9 @@ class LoginController extends Controller
         if (Auth::attempt($credentials, $request->filled('remember'))) {
             $request->session()->regenerate();
             session()->forget('unauthenticated_user');
-            if (session()->pull('just_registered')) {
-                return redirect('/mypage/profile');
-            }
+            // if (session()->pull('just_registered')) {
+            //     return redirect('/mypage/profile');
+            // }
             return redirect()->intended('/');
         }
 

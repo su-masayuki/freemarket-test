@@ -43,17 +43,15 @@ class ItemController extends Controller
 
     public function like(Item $item)
     {
-        $likedItems = session()->get('liked_items', []);
+        $user = auth()->user();
 
-        if (in_array($item->id, $likedItems)) {
+        if ($user->likes->contains($item->id)) {
+            $user->likes()->detach($item->id);
             $item->decrement('likes_count');
-            $likedItems = array_diff($likedItems, [$item->id]);
         } else {
+            $user->likes()->attach($item->id);
             $item->increment('likes_count');
-            $likedItems[] = $item->id;
         }
-
-        session(['liked_items' => $likedItems]);
 
         return back();
     }

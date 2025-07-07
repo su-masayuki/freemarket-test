@@ -2,23 +2,26 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 75vh;
+    height: 100vh; /* full vertical center */
 }
 
 .verify-box {
     text-align: center;
+    width: 100%;
 }
 
 .verify-message {
     font-weight: bold;
-    margin-bottom: 30px;
-    line-height: 1.8;
+    margin-bottom: 40px;
+    line-height: 2;
+    font-size: 18px;
 }
 
 .verify-button {
     background-color: #e0e0e0;
-    padding: 10px 24px;
+    padding: 12px 28px;
     font-weight: bold;
+    font-size: 16px;
     border-radius: 6px;
     border: 1px solid #999;
     cursor: pointer;
@@ -29,7 +32,7 @@
 }
 
 .resend-box {
-    margin-top: 20px;
+    margin-top: 30px;
 }
 
 .resend-link {
@@ -38,4 +41,5 @@
     color: #007bff;
     text-decoration: underline;
     cursor: pointer;
+    font-size: 14px;
 }
