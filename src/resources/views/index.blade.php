@@ -16,22 +16,43 @@
     <div class="item-grid">
         @foreach ($items as $item)
             @if (!auth()->check() || $item->user_id !== auth()->id())
-        <div class="item-card">
-            <a href="{{ url('/item/' . $item->id) }}">
-                <div class="image-container">
-                    @php
-                        $imageSrc = Str::startsWith($item->image_path, ['http://', 'https://']) 
-                            ? $item->image_path 
-                            : asset('storage/' . $item->image_path);
-                    @endphp
-                    <img src="{{ $imageSrc }}" alt="商品画像">
-                    @if ($item->is_sold)
-                        <div class="sold-label">SOLD</div>
+                @if (request()->get('page') === 'mylist')
+                    @if ($item->likes->pluck('id')->contains(auth()->id()))
+                        <div class="item-card">
+                            <a href="{{ url('/item/' . $item->id) }}">
+                                <div class="image-container">
+                                    @php
+                                        $imageSrc = Str::startsWith($item->image_path, ['http://', 'https://']) 
+                                            ? $item->image_path 
+                                            : asset('storage/' . $item->image_path);
+                                    @endphp
+                                    <img src="{{ $imageSrc }}" alt="商品画像">
+                                    @if ($item->is_sold)
+                                        <div class="sold-label">SOLD</div>
+                                    @endif
+                                </div>
+                                <div class="item-name">{{ $item->name }}</div>
+                            </a>
+                        </div>
                     @endif
-                </div>
-                <div class="item-name">{{ $item->name }}</div>
-            </a>
-        </div>
+                @else
+                    <div class="item-card">
+                        <a href="{{ url('/item/' . $item->id) }}">
+                            <div class="image-container">
+                                @php
+                                    $imageSrc = Str::startsWith($item->image_path, ['http://', 'https://']) 
+                                        ? $item->image_path 
+                                        : asset('storage/' . $item->image_path);
+                                @endphp
+                                <img src="{{ $imageSrc }}" alt="商品画像">
+                                @if ($item->is_sold)
+                                    <div class="sold-label">SOLD</div>
+                                @endif
+                            </div>
+                            <div class="item-name">{{ $item->name }}</div>
+                        </a>
+                    </div>
+                @endif
             @endif
         @endforeach
     </div>

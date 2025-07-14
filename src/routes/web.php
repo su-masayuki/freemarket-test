@@ -9,6 +9,9 @@ use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\MypageController;
 use App\Http\Controllers\SellController;
+use App\Http\Controllers\StripeWebhookController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\RedirectResponse;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +34,7 @@ Route::post('/items', [ItemController::class, 'store'])->name('items.store');
 
 Route::get('/purchase/{item}', [PurchaseController::class, 'show'])->middleware('auth')->name('purchase.show');
 Route::post('/purchase/{item}', [PurchaseController::class, 'store'])->name('purchase.store');
+Route::get('/purchase/complete/{item}', [PurchaseController::class, 'complete'])->middleware('auth')->name('purchase.complete');
 
 
 Route::post('/item/{item}/comments', [CommentController::class, 'store'])->name('comments.store');
@@ -47,8 +51,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/sell', [SellController::class, 'store'])->name('items.store');
 });
 
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
-use Illuminate\Http\RedirectResponse;
+
 
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request): RedirectResponse {
     if ($request->user()->hasVerifiedEmail()) {
@@ -61,3 +64,5 @@ Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $requ
 
     return redirect('/mypage/profile');
 })->middleware(['auth', 'signed'])->name('verification.verify');
+
+Route::post('/stripe/webhook', [StripeWebhookController::class, 'handle']);

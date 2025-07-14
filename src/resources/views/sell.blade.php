@@ -30,7 +30,7 @@
             {{-- カテゴリー --}}
             <div class="category-tags">
                 @foreach ($categories as $index => $category)
-                    <input type="checkbox" name="category[]" value="{{ $category }}" id="category{{ $index }}" hidden>
+                    <input type="checkbox" name="category[]" value="{{ $category }}" id="category{{ $index }}" {{ in_array($category, old('category', [])) ? 'checked' : '' }} hidden>
                     <label class="category-tag" for="category{{ $index }}">{{ $category }}</label>
                 @endforeach
             </div>
@@ -40,10 +40,10 @@
                 <label for="condition">商品の状態</label>
                 <select name="condition" id="condition">
                     <option value="">選択してください</option>
-                    <option value="新品">新品</option>
-                    <option value="未使用に近い">未使用に近い</option>
-                    <option value="良好">良好</option>
-                    <option value="やや傷や汚れあり">やや傷や汚れあり</option>
+                    <option value="新品" {{ old('condition') == '新品' ? 'selected' : '' }}>新品</option>
+                    <option value="未使用に近い" {{ old('condition') == '未使用に近い' ? 'selected' : '' }}>未使用に近い</option>
+                    <option value="良好" {{ old('condition') == '良好' ? 'selected' : '' }}>良好</option>
+                    <option value="やや傷や汚れあり" {{ old('condition') == 'やや傷や汚れあり' ? 'selected' : '' }}>やや傷や汚れあり</option>
                 </select>
             </div>
         </div>
@@ -54,22 +54,22 @@
 
             <div class="form-group">
                 <label for="name">商品名</label>
-                <input type="text" name="name" id="name">
+                <input type="text" name="name" id="name" value="{{ old('name') }}">
             </div>
 
             <div class="form-group">
                 <label for="brand_name">ブランド名</label>
-                <input type="text" name="brand_name" id="brand_name">
+                <input type="text" name="brand_name" id="brand_name" value="{{ old('brand_name') }}">
             </div>
 
             <div class="form-group">
                 <label for="description">商品の説明</label>
-                <textarea name="description" id="description" rows="4"></textarea>
+                <textarea name="description" id="description" rows="4">{{ old('description') }}</textarea>
             </div>
 
             <div class="form-group">
                 <label for="price">販売価格</label>
-                <input type="number" name="price" id="price" placeholder="¥">
+                <input type="number" name="price" id="price" placeholder="¥" value="{{ old('price') }}">
             </div>
         </div>
 

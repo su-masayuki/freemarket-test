@@ -17,10 +17,14 @@ class ItemController extends Controller
             $query->where('name', 'like', '%' . $request->keyword . '%');
         }
 
-        // マイリストページ：セッションからいいねアイテムを取得
+        // マイリストページ：データベースからいいねアイテムを取得
         if ($request->input('page') === 'mylist') {
-            $likedItems = session('liked_items', []);
-            $query->whereIn('id', $likedItems);
+            if (auth()->check()) {
+                $likedItems = auth()->user()->likes()->pluck('item_id');
+                $query->whereIn('id', $likedItems);
+            } else {
+                $query->whereRaw('0 = 1'); // 非ログイン時は空にする
+            }
         } else {
             // 自分が出品した商品は除外
             if (auth()->check()) {

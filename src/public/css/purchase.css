@@ -91,3 +91,9 @@
 .purchase-button:hover {
     background-color: #e14e4e;
 }
+
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 4px;
+}
