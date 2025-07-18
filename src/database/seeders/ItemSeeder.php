@@ -11,9 +11,8 @@ class ItemSeeder extends Seeder
     public function run(): void
     {
         $user = User::factory()->create([
-            'id' => 1,
             'name' => 'テスト太郎',
-            'email' => 'taro@example.com',
+            'email' => 'taro' . uniqid() . '@example.com',
             'password' => bcrypt('password'),
         ]);
 
