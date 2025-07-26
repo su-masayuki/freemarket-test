@@ -34,6 +34,8 @@ class ItemController extends Controller
 
         $items = $query->get();
 
+        logger()->info('Authenticated user ID: ' . auth()->id());
+
         return view('index', compact('items'));
     }
 
@@ -49,7 +51,9 @@ class ItemController extends Controller
     {
         $user = auth()->user();
 
-        if ($user->likes->contains($item->id)) {
+        $isLiked = $user->likes()->where('item_id', $item->id)->exists();
+
+        if ($isLiked) {
             $user->likes()->detach($item->id);
             $item->decrement('likes_count');
         } else {
