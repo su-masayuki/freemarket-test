@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\Item;
 use App\Models\User;
+use App\Models\Category;
 
 class ItemSeeder extends Seeder
 {
@@ -15,6 +16,11 @@ class ItemSeeder extends Seeder
             'email' => 'taro' . uniqid() . '@example.com',
             'password' => bcrypt('password'),
         ]);
+
+        $category = Category::firstOrCreate(
+            ['id' => 1],
+            ['name' => 'デフォルトカテゴリ']
+        );
 
         $items = [
             [
@@ -99,8 +105,34 @@ class ItemSeeder extends Seeder
             ],
         ];
 
+        // すべてのカテゴリを取得
+        $allCategories = Category::all()->pluck('id', 'name');
+
         foreach ($items as $item) {
-            Item::create($item);
+            $createdItem = Item::create($item);
+
+            $name = $item['name'];
+            $categoryIds = [];
+
+            if (str_contains($name, '腕時計')) {
+                $categoryIds[] = $allCategories['ファッション'] ?? $category->id;
+            } elseif (str_contains($name, 'HDD') || str_contains($name, 'ノートPC') || str_contains($name, 'マイク')) {
+                $categoryIds[] = $allCategories['家電'] ?? $category->id;
+            } elseif (str_contains($name, '玉ねぎ')) {
+                $categoryIds[] = $allCategories['キッチン'] ?? $category->id;
+            } elseif (str_contains($name, '革靴') || str_contains($name, 'ショルダーバッグ')) {
+                $categoryIds[] = $allCategories['ファッション'] ?? $category->id;
+            } elseif (str_contains($name, 'タンブラー') || str_contains($name, 'コーヒーミル')) {
+                $categoryIds[] = $allCategories['キッチン'] ?? $category->id;
+            } elseif (str_contains($name, 'メイクセット')) {
+                $categoryIds[] = $allCategories['コスメ'] ?? $category->id;
+            }
+
+            if (!empty($categoryIds)) {
+                $createdItem->categories()->attach($categoryIds);
+            } else {
+                $createdItem->categories()->attach($category->id);
+            }
         }
     }
 }

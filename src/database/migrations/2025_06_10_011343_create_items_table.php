@@ -19,7 +19,6 @@ class CreateItemsTable extends Migration
             $table->string('name');
             $table->string('brand_name')->nullable();
             $table->integer('price');
-            $table->json('category')->nullable();
             $table->text('description');
             $table->string('image_path');
             $table->string('condition');

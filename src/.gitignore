@@ -15,4 +15,4 @@ yarn-error.log
 /.vscode
 docker/mysql/data/
 *.key
-.env.testing.env.testing
+.env.testing

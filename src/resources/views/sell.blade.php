@@ -28,10 +28,11 @@
             <h3 class="section-heading">商品の詳細</h3>
 
             {{-- カテゴリー --}}
+            <h4 class="section-subheading">カテゴリー</h4>
             <div class="category-tags">
                 @foreach ($categories as $index => $category)
-                    <input type="checkbox" name="category[]" value="{{ $category }}" id="category{{ $index }}" {{ in_array($category, old('category', [])) ? 'checked' : '' }} hidden>
-                    <label class="category-tag" for="category{{ $index }}">{{ $category }}</label>
+                    <input type="checkbox" name="category_ids[]" value="{{ $category->id }}" id="category{{ $index }}" hidden {{ in_array($category->id, old('category_ids', [])) ? 'checked' : '' }}>
+                    <label class="category-tag" for="category{{ $index }}">{{ $category->name }}</label>
                 @endforeach
             </div>
 
@@ -91,6 +92,26 @@ document.getElementById('image').addEventListener('change', function(event) {
         preview.src = '';
         preview.style.display = 'none';
     }
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    const checkboxes = document.querySelectorAll('.category-tag input[type="checkbox"]');
+    checkboxes.forEach(function (checkbox) {
+        checkbox.addEventListener('change', function () {
+            const label = checkbox.closest('label');
+            if (checkbox.checked) {
+                label.classList.add('selected');
+            } else {
+                label.classList.remove('selected');
+            }
+        });
+
+        // 初期状態も反映
+        const label = checkbox.closest('label');
+        if (checkbox.checked) {
+            label.classList.add('selected');
+        }
+    });
 });
 </script>
 @endsection

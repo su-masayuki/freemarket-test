@@ -10,7 +10,7 @@ class Item extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name','brand_name', 'price', 'description', 'image_path', 'condition', 'is_sold', 'likes_count', 'user_id', 'category'];
+    protected $fillable = ['name','brand_name', 'price', 'description', 'image_path', 'condition', 'is_sold', 'likes_count', 'user_id'];
 
     public function purchasers()
     {
@@ -25,5 +25,10 @@ class Item extends Model
     public function likes()
     {
         return $this->belongsToMany(User::class, 'likes')->withTimestamps();
+    }
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'category_item', 'item_id', 'category_id');
     }
 }

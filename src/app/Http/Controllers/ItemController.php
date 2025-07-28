@@ -72,6 +72,7 @@ class ItemController extends Controller
             'description' => 'nullable|string',
             'image_path' => 'required|string',
             'condition' => 'required|string',
+            'category_id' => 'required|exists:categories,id',
         ]);
 
         Item::create([
@@ -80,6 +81,7 @@ class ItemController extends Controller
             'description' => $request->description,
             'image_path' => $request->image_path,
             'condition' => $request->condition,
+            'category_id' => $request->category_id,
             'user_id' => auth()->id(),
         ]);
 

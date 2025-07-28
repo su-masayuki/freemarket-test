@@ -59,13 +59,12 @@
                 <div class="item-category">
                     <h3>カテゴリー</h3>
                     <div class="category-tags">
-                        @php
-                            $categories = is_string($item->category) ? json_decode($item->category, true) : [];
-                        @endphp
-                        @if (is_array($categories))
-                            @foreach ($categories as $cat)
-                                <span class="category-tag">{{ $cat }}</span>
+                        @if ($item->categories && $item->categories->isNotEmpty())
+                            @foreach ($item->categories as $category)
+                                <span class="category-tag">{{ $category->name }}</span>
                             @endforeach
+                        @else
+                            <span class="category-tag">未設定</span>
                         @endif
                     </div>
                 </div>
