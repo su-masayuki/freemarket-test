@@ -72,3 +72,30 @@
 .submit-button:hover {
     background-color: #e14e4e;
 }
+
+@media (min-width: 1400px) and (max-width: 1540px) {
+    .profile-container {
+        max-width: 700px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 850px) {
+    .profile-container {
+        max-width: 90%;
+        padding: 15px;
+    }
+
+    .profile-title {
+        font-size: 22px;
+    }
+
+    .profile-image {
+        width: 90px;
+        height: 90px;
+    }
+
+    .submit-button {
+        font-size: 15px;
+        padding: 10px;
+    }
+}

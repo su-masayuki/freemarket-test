@@ -134,3 +134,45 @@
     border-radius: 4px;
     padding: 2px;
 }
+
+@media (max-width: 850px) {
+    .item-detail-wrapper {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .item-image img {
+        width: 100%;
+        max-width: 300px;
+        height: auto;
+    }
+
+    .buy-button,
+    .submit-comment {
+        font-size: 14px;
+    }
+
+    .item-title {
+        font-size: 18px;
+        text-align: center;
+    }
+
+    .price {
+        text-align: center;
+    }
+
+    .item-info {
+        width: 100%;
+    }
+}
+
+@media (min-width: 1400px) and (max-width: 1540px) {
+    .item-detail-container {
+        max-width: 90%;
+    }
+
+    .item-image img {
+        max-width: 320px;
+        height: auto;
+    }
+}

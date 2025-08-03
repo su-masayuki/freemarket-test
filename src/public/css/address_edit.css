@@ -44,3 +44,28 @@
 .submit-button:hover {
     background-color: #e14e4e;
 }
+
+@media screen and (max-width: 1540px) and (min-width: 1400px) {
+    .address-edit-container {
+        max-width: 580px;
+    }
+}
+
+@media screen and (max-width: 850px) and (min-width: 768px) {
+    .address-edit-container {
+        max-width: 90%;
+        padding: 16px;
+    }
+
+    .address-edit-title {
+        font-size: 22px;
+    }
+
+    .form-group label {
+        font-size: 13px;
+    }
+
+    .submit-button {
+        font-size: 15px;
+    }
+}

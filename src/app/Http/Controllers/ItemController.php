@@ -12,16 +12,15 @@ class ItemController extends Controller
     {
         $query = Item::query();
 
-        // 検索キーワードがある場合は部分一致検索
-        if ($request->filled('keyword')) {
-            $query->where('name', 'like', '%' . $request->keyword . '%');
-        }
-
-        // マイリストページ：データベースからいいねアイテムを取得
         if ($request->input('page') === 'mylist') {
             if (auth()->check()) {
                 $likedItems = auth()->user()->likes()->pluck('item_id');
                 $query->whereIn('id', $likedItems);
+
+                // 検索キーワードがある場合は部分一致検索をさらに適用
+                if ($request->filled('keyword')) {
+                    $query->where('name', 'like', '%' . $request->keyword . '%');
+                }
             } else {
                 $query->whereRaw('0 = 1'); // 非ログイン時は空にする
             }
@@ -30,13 +29,17 @@ class ItemController extends Controller
             if (auth()->check()) {
                 $query->where('user_id', '!=', auth()->id());
             }
+
+            // 検索キーワードがある場合は部分一致検索
+            if ($request->filled('keyword')) {
+                $query->where('name', 'like', '%' . $request->keyword . '%');
+            }
         }
 
         $items = $query->get();
 
-        logger()->info('Authenticated user ID: ' . auth()->id());
-
-        return view('index', compact('items'));
+        $keyword = $request->keyword;
+        return view('index', compact('items', 'keyword'));
     }
 
     public function show(Item $item)
@@ -68,22 +71,28 @@ class ItemController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
+            'brand_name' => 'required|string|max:255',
             'price' => 'required|integer',
             'description' => 'nullable|string',
-            'image_path' => 'required|string',
+            'image' => 'required|image|max:2048',
             'condition' => 'required|string',
-            'category_id' => 'required|exists:categories,id',
+            'category_ids' => 'required|array',
+            'category_ids.*' => 'exists:categories,id',
         ]);
 
-        Item::create([
+        $imagePath = $request->file('image')->store('items', 'public');
+
+        $item = Item::create([
             'name' => $request->name,
+            'brand_name' => $request->brand_name,
             'price' => $request->price,
             'description' => $request->description,
-            'image_path' => $request->image_path,
+            'image_path' => $imagePath,
             'condition' => $request->condition,
-            'category_id' => $request->category_id,
             'user_id' => auth()->id(),
         ]);
+
+        $item->categories()->attach($request->category_ids);
 
         return redirect()->route('home')->with('success', '商品を出品しました');
     }

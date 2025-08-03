@@ -53,7 +53,7 @@ class LoginTest extends TestCase
             'password' => 'password123',
         ]);
 
-        $response->assertSessionHasErrors(['email']);
+        $response->assertSessionHasErrors(['email' => 'メールアドレスを入力してください']);
     }
     public function test_login_requires_password()
     {
@@ -64,7 +64,7 @@ class LoginTest extends TestCase
             'password' => '',
         ]);
 
-        $response->assertSessionHasErrors(['password']);
+        $response->assertSessionHasErrors(['password' => 'パスワードを入力してください']);
     }
     public function test_login_with_unregistered_credentials_shows_validation_message()
     {
@@ -73,7 +73,7 @@ class LoginTest extends TestCase
             'password' => 'invalidpassword',
         ]);
 
-        $response->assertSessionHasErrors();
+        $response->assertSessionHasErrors(['email' => 'ログイン情報が登録されていません']);
         $this->assertGuest();
     }
 

@@ -16,15 +16,19 @@ class ItemDetailPageTest extends TestCase
     public function test_item_detail_displays_all_required_information()
     {
         $user = \App\Models\User::factory()->create();
+        $category1 = \App\Models\Category::factory()->create(['name' => 'カテゴリ1']);
+        $category2 = \App\Models\Category::factory()->create(['name' => 'カテゴリ2']);
+
         $item = \App\Models\Item::factory()->create([
             'user_id' => $user->id,
             'name' => 'テスト商品',
             'brand_name' => 'ブランド名',
             'price' => 12345,
             'description' => '商品説明',
-            'category' => json_encode(['カテゴリ1', 'カテゴリ2']),
             'condition' => '新品',
         ]);
+
+        $item->categories()->attach([$category1->id, $category2->id]);
 
         // コメントを追加
         \App\Models\Comment::factory()->count(2)->create([

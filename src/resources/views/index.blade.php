@@ -9,8 +9,8 @@
 @section('content')
 <div class="container">
     <div class="tab-menu">
-        <a href="{{ url('/') }}" class="tab {{ request()->get('page') !== 'mylist' ? 'active' : '' }}">おすすめ</a>
-        <a href="{{ url('/?page=mylist') }}" class="tab {{ request()->get('page') === 'mylist' ? 'active' : '' }}">マイリスト</a>
+        <a href="{{ url('/?' . http_build_query(array_merge(request()->query(), ['page' => null]))) }}" class="tab {{ request()->get('page') !== 'mylist' ? 'active' : '' }}">おすすめ</a>
+        <a href="{{ url('/?' . http_build_query(array_merge(request()->query(), ['page' => 'mylist']))) }}" class="tab {{ request()->get('page') === 'mylist' ? 'active' : '' }}">マイリスト</a>
     </div>
 
     <div class="item-grid">

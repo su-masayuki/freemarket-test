@@ -7,8 +7,8 @@
         @unless (in_array(Route::currentRouteName(), ['login', 'register', 'verification.notice']))
             <form action="{{ route('home') }}" method="GET" class="header__search-form">
                 <input type="text" name="keyword" value="{{ request('keyword') }}" placeholder="なにをお探しですか？" class="header__search-input">
-                @if (request('page') === 'mylist')
-                    <input type="hidden" name="page" value="mylist">
+                @if (request()->has('page'))
+                    <input type="hidden" name="page" value="{{ request('page') }}">
                 @endif
             </form>
 
@@ -26,7 +26,13 @@
                     <a href="{{ route('login') }}" class="header__link">ログイン</a>
                 @endguest
 
-                <a href="{{ url('/mypage') }}" class="header__link">マイページ</a>
+                @php
+                    $query = ['page' => 'mylist'];
+                    if (request()->routeIs('home') && request('keyword')) {
+                        $query['keyword'] = request('keyword');
+                    }
+                @endphp
+                <a href="{{ url('/mypage') . '?' . http_build_query($query) }}" class="header__link">マイページ</a>
                 @auth
                     <a href="{{ url('/sell') }}" class="header__button">出品</a>
                 @else

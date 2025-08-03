@@ -12,7 +12,8 @@ class CommentTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_logged_in_user_can_submit_comment()
+    // ユーザーがログインしている状態でコメントを入力し投稿すると保存され、コメント数が1増加する
+    public function test_logged_in_user_can_submit_comment_works_as_expected()
     {
         $user = User::factory()->create();
         $item = Item::factory()->create();
@@ -34,7 +35,8 @@ class CommentTest extends TestCase
         $this->assertEquals(1, $item->comments()->count());
     }
 
-    public function test_guest_cannot_submit_comment()
+    // 未ログイン状態でコメント投稿すると、ログインページにリダイレクトされコメントは保存されない
+    public function test_guest_cannot_submit_comment_works_as_expected()
     {
         $item = Item::factory()->create();
 
@@ -48,7 +50,8 @@ class CommentTest extends TestCase
         ]);
     }
 
-    public function test_comment_body_is_required()
+    // コメントが未入力で送信された場合、バリデーションエラーが発生する
+    public function test_comment_body_is_required_works_as_expected()
     {
         $user = User::factory()->create();
         $item = Item::factory()->create();
@@ -62,7 +65,8 @@ class CommentTest extends TestCase
         $response->assertSessionHasErrors(['body']);
     }
 
-    public function test_comment_body_must_be_under_255_characters()
+    // コメントが255文字を超える場合、バリデーションエラーが発生する
+    public function test_comment_body_must_be_under_255_characters_works_as_expected()
     {
         $user = User::factory()->create();
         $item = Item::factory()->create();

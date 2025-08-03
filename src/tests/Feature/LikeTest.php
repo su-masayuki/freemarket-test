@@ -48,7 +48,7 @@ class LikeTest extends TestCase
             'item_id' => $item->id,
         ]);
 
-        // いいね数が1であることを確認（likes_countカラムがある場合）
+        // いいねが登録され、いいね合計値（likes_count）が1になっていることを確認
         $item->refresh();
         $this->assertEquals(1, $item->likes_count);
     }
@@ -68,7 +68,7 @@ class LikeTest extends TestCase
         // 商品詳細ページへアクセス
         $response = $this->get("/item/{$item->id}");
 
-        // いいね済みの状態に対応するクラスがHTMLに含まれているかを確認（例: liked）
+        // いいねされた状態のアイコンが赤色で表示されていることを確認
         $response->assertSee('<img src="http://localhost/images/like_icon_red.png"', false);
     }
 
@@ -90,6 +90,7 @@ class LikeTest extends TestCase
         $this->post(route('items.like', $item->id));
         $item->refresh();
 
+        // 2回目の押下でいいね解除（unlike）され、いいね合計値が0になっていることを確認
         // いいねが削除されたことを確認
         $this->assertDatabaseMissing('likes', [
             'user_id' => $user->id,

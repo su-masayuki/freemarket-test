@@ -43,3 +43,50 @@
     cursor: pointer;
     font-size: 14px;
 }
+
+
+@media screen and (max-width: 850px) {
+    .verify-container {
+        padding: 20px;
+        height: auto;
+        flex-direction: column;
+    }
+
+    .verify-box {
+        width: 100%;
+    }
+
+    .verify-message {
+        font-size: 16px;
+        margin-bottom: 30px;
+    }
+
+    .verify-button {
+        width: 100%;
+        font-size: 15px;
+        padding: 10px 20px;
+    }
+
+    .resend-box {
+        margin-top: 20px;
+    }
+
+    .resend-link {
+        font-size: 13px;
+    }
+}
+
+@media screen and (min-width: 1400px) and (max-width: 1540px) {
+    .verify-box {
+        max-width: 600px;
+    }
+
+    .verify-message {
+        font-size: 18px;
+    }
+
+    .verify-button {
+        padding: 14px 30px;
+        font-size: 17px;
+    }
+}

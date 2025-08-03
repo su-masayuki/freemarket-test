@@ -127,3 +127,41 @@
 .submit-button:hover {
     background-color: #e14e4e;
 }
+
+/* Responsive design for tablet (768px - 850px) */
+@media (max-width: 850px) {
+    .sell-container {
+        max-width: 90%;
+        padding: 15px;
+    }
+
+    .category-tags {
+        gap: 8px;
+    }
+
+    .image-upload-area {
+        height: 150px;
+    }
+
+    .submit-button {
+        font-size: 15px;
+    }
+}
+
+/* Responsive design for PC (1400px - 1540px) */
+@media (min-width: 1400px) and (max-width: 1540px) {
+    .sell-container {
+        max-width: 800px;
+    }
+
+    .category-tags label {
+        padding: 10px 18px;
+        font-size: 15px;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+        font-size: 15px;
+    }
+}

@@ -57,3 +57,40 @@
     text-decoration: none;
     font-size: 14px;
 }
+
+/* Responsive Styles */
+
+/* For tablets (768px - 850px) */
+@media screen and (max-width: 850px) and (min-width: 768px) {
+    .header__inner {
+        width: 95%;
+    }
+
+    .header__search-input {
+        width: 150px;
+    }
+
+    .header__link,
+    .header__button {
+        font-size: 13px;
+        margin-left: 10px;
+    }
+}
+
+/* For desktops (1400px - 1540px) */
+@media screen and (min-width: 1400px) and (max-width: 1540px) {
+    .header__inner {
+        width: 90%;
+        max-width: 1400px;
+    }
+
+    .header__search-input {
+        width: 220px;
+    }
+
+    .header__link,
+    .header__button {
+        font-size: 15px;
+        margin-left: 25px;
+    }
+}

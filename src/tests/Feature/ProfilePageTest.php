@@ -35,6 +35,7 @@ class ProfilePageTest extends TestCase
         $response->assertSee('プロフィールを編集');
         $response->assertSee('出品した商品');
         $response->assertSee('購入した商品');
+        $response->assertSee($user->image_path);
     }
     public function test_profile_edit_page_displays_existing_user_info()
     {

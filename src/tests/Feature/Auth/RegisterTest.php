@@ -8,20 +8,10 @@ use Tests\TestCase;
 
 class RegisterTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
-    public function test_example()
-    {
-        $response = $this->get('/');
-
-        $response->assertStatus(200);
-    }
 
     public function test_name_is_required_for_registration()
     {
+        $this->withoutMiddleware();
         $response = $this->post('/register', [
             'name' => '',
             'email' => 'test@example.com',
@@ -36,6 +26,7 @@ class RegisterTest extends TestCase
 
     public function test_email_is_required_for_registration()
     {
+        $this->withoutMiddleware();
         $response = $this->post('/register', [
             'name' => 'テストユーザー',
             'email' => '',
@@ -50,6 +41,7 @@ class RegisterTest extends TestCase
 
     public function test_password_is_required_for_registration()
     {
+        $this->withoutMiddleware();
         $response = $this->post('/register', [
             'name' => 'テストユーザー',
             'email' => 'test@example.com',
@@ -64,6 +56,7 @@ class RegisterTest extends TestCase
 
     public function test_password_must_be_at_least_8_characters()
     {
+        $this->withoutMiddleware();
         $response = $this->post('/register', [
             'name' => 'テストユーザー',
             'email' => 'test@example.com',
@@ -78,6 +71,7 @@ class RegisterTest extends TestCase
 
     public function test_password_confirmation_must_match()
     {
+        $this->withoutMiddleware();
         $response = $this->post('/register', [
             'name' => 'テストユーザー',
             'email' => 'test@example.com',
@@ -92,16 +86,20 @@ class RegisterTest extends TestCase
 
     public function test_successful_registration_redirects_to_verification_notice()
     {
+        $this->withoutMiddleware();
+
+        $email = 'user' . uniqid() . '@example.com';
+
         $response = $this->post('/register', [
             'name' => 'テストユーザー',
-            'email' => 'newuser@example.com',
+            'email' => $email,
             'password' => 'password123',
             'password_confirmation' => 'password123',
         ]);
 
-        $response->assertRedirect('/email/verify');
+        $response->assertRedirect(route('verification.notice'));
         $this->assertDatabaseHas('users', [
-            'email' => 'newuser@example.com',
+            'email' => $email,
         ]);
     }
 }

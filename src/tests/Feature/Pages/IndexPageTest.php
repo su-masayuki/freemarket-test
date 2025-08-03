@@ -65,35 +65,38 @@ class IndexPageTest extends TestCase
         $response->assertSee('SOLD');
     }
 
-    // public function test_items_created_by_authenticated_user_are_not_displayed()
-    // {
-    //     // 出品者を作成してログイン
-    //     $user = \App\Models\User::factory()->create();
-    //     $this->actingAs($user);
+    /**
+     * 自分が出品した商品は商品一覧に表示されないことを確認する
+     */
+    public function test_items_created_by_authenticated_user_are_not_displayed()
+    {
+        // 出品者を作成してログイン
+        $user = \App\Models\User::factory()->create();
+        $this->actingAs($user);
 
-    //     // 出品者自身の商品を作成
-    //     \App\Models\Item::factory()->create([
-    //         'name' => '自分の商品',
-    //         'user_id' => $user->id,
-    //     ]);
+        // 出品者自身の商品を作成
+        \App\Models\Item::factory()->create([
+            'name' => '自分の商品',
+            'user_id' => $user->id,
+        ]);
 
-    //     // 他のユーザーの商品を作成
-    //     \App\Models\Item::factory()->create([
-    //         'name' => '他人の商品',
-    //     ]);
+        // 他のユーザーの商品を作成
+        \App\Models\Item::factory()->create([
+            'name' => '他人の商品',
+        ]);
 
-    //     // 商品一覧ページにアクセス
-    //     $response = $this->get('/');
+        // 商品一覧ページにアクセス
+        $response = $this->get('/');
 
-    //     // ステータスが200か確認
-    //     $response->assertStatus(200);
+        // ステータスが200か確認
+        $response->assertStatus(200);
 
-    //     // 他人の商品は表示されていることを確認
-    //     $response->assertSee('他人の商品');
+        // 他人の商品は表示されていることを確認
+        $response->assertSee('他人の商品');
 
-    //     // 自分の商品は表示されていないことを確認
-    //     $response->assertDontSee('自分の商品');
-    // }
+        // 自分の商品は表示されていないことを確認
+        $response->assertDontSee('自分の商品');
+    }
 
     public function test_search_returns_items_matching_keyword()
     {

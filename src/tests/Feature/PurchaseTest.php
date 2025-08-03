@@ -127,6 +127,52 @@ class PurchaseTest extends TestCase
             'address' => '北海道札幌市9-9-9',
         ]);
     }
+
+    // public function test_user_can_complete_purchase_via_purchase_button()
+    // {
+    //     $user = User::factory()->create([
+    //         'zipcode' => '123-4567',
+    //         'address' => '東京都新宿区1-2-3',
+    //     ]);
+    //     $item = Item::factory()->create();
+
+    //     $this->actingAs($user);
+
+    //     $response = $this->post("/purchase/{$item->id}");
+
+    //     $response->assertRedirect(route('purchase.complete', ['item' => $item->id]));
+    //     $this->assertDatabaseHas('purchases', [
+    //         'user_id' => $user->id,
+    //         'item_id' => $item->id,
+    //     ]);
+    // }
+
+    // public function test_user_can_complete_purchase_with_convenience_store_payment()
+    // {
+    //     $user = User::factory()->create([
+    //         'zipcode' => '123-4567',
+    //         'address' => '東京都渋谷区1-2-3',
+    //     ]);
+    //     $item = Item::factory()->create();
+
+    //     $this->actingAs($user);
+
+    //     // 支払い方法を設定
+    //     $this->put("/purchase/address/{$item->id}", [
+    //         'zipcode' => '111-1111',
+    //         'address' => '東京都渋谷区4-5-6',
+    //         'payment_method' => 'convenience_store',
+    //     ]);
+
+    //     // 購入処理
+    //     $response = $this->post("/purchase/{$item->id}");
+
+    //     $response->assertRedirect(route('purchase.complete', ['item' => $item->id]));
+    //     $this->assertDatabaseHas('purchases', [
+    //         'user_id' => $user->id,
+    //         'item_id' => $item->id,
+    //     ]);
+    // }
 }
 
     
