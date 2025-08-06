@@ -40,11 +40,14 @@ class StripeWebhookController extends Controller
                     $item->is_sold = true;
                     $item->save();
 
-                    Purchase::create([
-                        'user_id' => $user->id,
-                        'item_id' => $item->id,
-                        'shipping_address_id' => $user->shippingAddresses()->latest()->first()->id, // 要調整
-                    ]);
+                    $address = $user->shippingAddresses()->latest()->first();
+                    if ($address) {
+                        Purchase::create([
+                            'user_id' => $user->id,
+                            'item_id' => $item->id,
+                            'shipping_address_id' => $address->id,
+                        ]);
+                    }
                 }
             }
         }

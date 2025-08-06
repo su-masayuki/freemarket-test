@@ -21,7 +21,6 @@ class ProfilePageTest extends TestCase
                 'name' => 'テストユーザー',
             ]);
 
-        // 購入商品を1件作成
         $purchasedItem = \App\Models\Item::factory()->create();
         \App\Models\Purchase::factory()->create([
             'user_id' => $user->id,

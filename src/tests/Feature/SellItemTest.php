@@ -18,14 +18,14 @@ class SellItemTest extends TestCase
      */
     public function test_user_can_register_item_listing()
     {
-        // ダミーユーザー作成・ログイン
+
         $user = \App\Models\User::factory()->create();
         $this->actingAs($user);
 
-        // カテゴリを作成
+
         $category = \App\Models\Category::factory()->create();
 
-        // フォーム送信データ
+
         $formData = [
             'name' => 'テスト商品',
             'category' => [$category->id],
@@ -35,10 +35,8 @@ class SellItemTest extends TestCase
             'brand_name' => 'テストブランド',
         ];
 
-        // POSTリクエストで出品処理
         $response = $this->post('/sell', $formData);
 
-        // リダイレクト先とDBへの保存を確認
         $response->assertRedirect('/');
 
         $this->assertDatabaseHas('items', [

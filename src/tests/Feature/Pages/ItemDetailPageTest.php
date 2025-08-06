@@ -30,13 +30,11 @@ class ItemDetailPageTest extends TestCase
 
         $item->categories()->attach([$category1->id, $category2->id]);
 
-        // コメントを追加
         \App\Models\Comment::factory()->count(2)->create([
             'item_id' => $item->id,
             'user_id' => $user->id,
         ]);
 
-        // いいね追加（likes_count を反映）
         $item->update(['likes_count' => 5]);
 
         $response = $this->get('/item/' . $item->id);

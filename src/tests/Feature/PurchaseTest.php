@@ -38,10 +38,8 @@ class PurchaseTest extends TestCase
         ]);
         $item = Item::factory()->create();
 
-        // 購入処理
         $this->actingAs($user)->get("/purchase/complete/{$item->id}");
 
-        // 商品一覧ページを確認
         $response = $this->get('/');
 
         $response->assertSee('SOLD');
@@ -73,15 +71,13 @@ class PurchaseTest extends TestCase
 
         $this->actingAs($user);
 
-        // 支払い方法をセッションに保存するリクエストをシミュレート
         $response = $this->put("/purchase/address/{$item->id}", [
             'payment_method' => 'credit_card',
-            '_method' => 'PUT', // HTMLフォームからのPUTメソッドエミュレーション
+            '_method' => 'PUT', 
         ]);
 
         $response->assertRedirect('/');
 
-        // 購入確認画面で選択が反映されているか確認
         $response = $this->get("/purchase/{$item->id}");
 
         $response->assertSee('クレジットカード');

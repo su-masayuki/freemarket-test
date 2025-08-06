@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
 
-        // 初期状態も反映
+        // 初期状態を反映
         const label = checkbox.closest('label');
         if (checkbox.checked) {
             label.classList.add('selected');
