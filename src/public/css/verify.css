@@ -45,11 +45,12 @@
 }
 
 
-@media screen and (max-width: 850px) {
+@media (max-width: 767px) {
     .verify-container {
         padding: 20px;
         height: auto;
         flex-direction: column;
+        max-width: 90%;
     }
 
     .verify-box {
@@ -76,9 +77,9 @@
     }
 }
 
-@media screen and (min-width: 1400px) and (max-width: 1540px) {
+@media (min-width: 1540px) and (max-width: 1400px) {
     .verify-box {
-        max-width: 600px;
+        max-width: 90%;
     }
 
     .verify-message {

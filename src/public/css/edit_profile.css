@@ -73,13 +73,8 @@
     background-color: #e14e4e;
 }
 
-@media (min-width: 1400px) and (max-width: 1540px) {
-    .profile-container {
-        max-width: 700px;
-    }
-}
 
-@media (min-width: 768px) and (max-width: 850px) {
+@media (max-width: 850px) {
     .profile-container {
         max-width: 90%;
         padding: 15px;
@@ -97,5 +92,11 @@
     .submit-button {
         font-size: 15px;
         padding: 10px;
+    }
+}
+
+@media (min-width: 1540px) and (max-width: 1400px) {
+    .profile-container {
+        max-width: 700px;
     }
 }

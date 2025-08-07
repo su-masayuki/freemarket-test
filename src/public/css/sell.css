@@ -128,8 +128,8 @@
     background-color: #e14e4e;
 }
 
-/* Responsive design for tablet (768px - 850px) */
-@media (max-width: 850px) {
+
+@media (max-width: 767px) {
     .sell-container {
         max-width: 90%;
         padding: 15px;
@@ -148,10 +148,10 @@
     }
 }
 
-/* Responsive design for PC (1400px - 1540px) */
-@media (min-width: 1400px) and (max-width: 1540px) {
+
+@media (min-width: 1540px) and (max-width: 1400px) {
     .sell-container {
-        max-width: 800px;
+        max-width: 90%;
     }
 
     .category-tags label {
