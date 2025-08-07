@@ -67,6 +67,7 @@
         <div class="purchase-summary">
             <div class="summary-box">
                 <p>商品代金　¥{{ number_format($item->price) }}</p>
+                <div class="summary-divider"></div>
                 <p>支払い方法　<span id="payment-method-text">未選択</span></p>
             </div>
             <button type="submit" class="purchase-button">購入する</button>
