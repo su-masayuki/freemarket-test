@@ -27,7 +27,7 @@ class PurchaseController extends Controller
             'payment_method' => 'required',
         ]);
 
-        // 新しい配送先住所を保存（リクエストまたはユーザープロフィール住所を使用）
+        // 新しい配送先住所を保存
         $shipping = null;
 
         if ($request->filled('zipcode') && $request->filled('address')) {
@@ -107,7 +107,7 @@ class PurchaseController extends Controller
             }
         }
 
-        // Store shipping info in session for use after payment success
+    
         session([
             'shipping_address_id' => $shipping->id,
         ]);
@@ -123,7 +123,7 @@ class PurchaseController extends Controller
     {
         $user = Auth::user();
 
-        // Check if purchase already exists to prevent duplicate processing
+        
         $existingPurchase = Purchase::where('user_id', $user->id)
             ->where('item_id', $item->id)
             ->first();
@@ -160,7 +160,7 @@ class PurchaseController extends Controller
             'shipping_address_id' => $shippingAddressId,
         ]);
 
-        // Clear shipping info from session
+   
         session()->forget('shipping_address_id');
 
         return redirect()->route('home')->with('status', '購入が完了しました。');
