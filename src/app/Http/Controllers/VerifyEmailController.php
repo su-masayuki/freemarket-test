@@ -12,11 +12,9 @@ class VerifyEmailController
         if ($request->user()->hasVerifiedEmail()) {
             return redirect('/mypage/profile');
         }
-
         if ($request->user()->markEmailAsVerified()) {
             event(new \Illuminate\Auth\Events\Verified($request->user()));
         }
-
         return redirect('/mypage/profile');
     }
 }

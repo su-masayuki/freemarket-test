@@ -27,7 +27,6 @@ class CreateItemsTable extends Migration
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      *

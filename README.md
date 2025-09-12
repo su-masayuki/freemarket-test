@@ -29,6 +29,7 @@
    docker-compose exec php bash
    composer install
    cp .env.example .env
+   mkdir -p ./src/storage/app/public/images/items ./src/storage/app/public/images/profiles
    php artisan key:generate
    php artisan migrate
    php artisan db:seed
@@ -108,4 +109,4 @@ php artisan test
 
 ## ER図
 
-![ER図](er.drawio.png)
+![alt](er.drawio.png)

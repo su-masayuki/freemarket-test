@@ -20,7 +20,6 @@ class CreateLikesTable extends Migration
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      *

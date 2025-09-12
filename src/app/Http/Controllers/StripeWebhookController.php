@@ -14,13 +14,14 @@ class StripeWebhookController extends Controller
     public function handle(Request $request)
     {
         Stripe::setApiKey(config('services.stripe.secret'));
-
         $payload = $request->getContent();
         $sigHeader = $request->header('Stripe-Signature');
 
         try {
             $event = Webhook::constructEvent(
-                $payload, $sigHeader, config('services.stripe.webhook_secret')
+                $payload,
+                $sigHeader,
+                config('services.stripe.webhook_secret')
             );
         } catch (\Exception $e) {
             return response()->json(['error' => 'Invalid webhook'], 400);
@@ -28,7 +29,6 @@ class StripeWebhookController extends Controller
 
         if ($event->type === 'payment_intent.succeeded') {
             $intent = $event->data->object;
-
             $itemId = $intent->metadata->item_id ?? null;
             $userId = $intent->metadata->user_id ?? null;
 

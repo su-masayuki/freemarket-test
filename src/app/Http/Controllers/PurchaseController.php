@@ -1,9 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Support\Facades\Auth;
 use App\Models\Item;
-
 use App\Http\Requests\PurchaseRequest;
 use App\Models\Purchase;
 use App\Models\ShippingAddress;
@@ -18,7 +18,7 @@ class PurchaseController extends Controller
         return view('purchase', compact('item', 'user'));
     }
 
-    public function store(\App\Http\Requests\PurchaseRequest $request, Item $item)
+    public function store(PurchaseRequest $request, Item $item)
     {
         $user = Auth::user();
 
@@ -107,7 +107,6 @@ class PurchaseController extends Controller
             }
         }
 
-    
         session([
             'shipping_address_id' => $shipping->id,
         ]);
@@ -123,7 +122,6 @@ class PurchaseController extends Controller
     {
         $user = Auth::user();
 
-        
         $existingPurchase = Purchase::where('user_id', $user->id)
             ->where('item_id', $item->id)
             ->first();
@@ -137,7 +135,7 @@ class PurchaseController extends Controller
 
         if (! $shippingAddressId) {
             if (app()->environment('testing') && $user->zipcode && $user->address) {
-                $shipping = \App\Models\ShippingAddress::create([
+                $shipping = ShippingAddress::create([
                     'user_id' => $user->id,
                     'zipcode' => $user->zipcode,
                     'address' => $user->address,
@@ -160,7 +158,6 @@ class PurchaseController extends Controller
             'shipping_address_id' => $shippingAddressId,
         ]);
 
-   
         session()->forget('shipping_address_id');
 
         return redirect()->route('home')->with('status', '購入が完了しました。');

@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Item;
 
+use App\Models\Item;
 use Illuminate\Http\Request;
 
 class AddressController extends Controller
@@ -12,7 +12,6 @@ class AddressController extends Controller
         $user = auth()->user();
         return view('address_edit', compact('item', 'user'));
     }
-
 
     public function update(Request $request, Item $item)
     {
@@ -28,6 +27,8 @@ class AddressController extends Controller
         $user->building = $request->input('building');
         $user->save();
 
-        return redirect()->route('purchase.show', $item)->with('success', '住所を更新しました');
+        return redirect()
+            ->route('purchase.show', $item)
+            ->with('success', '住所を更新しました');
     }
 }

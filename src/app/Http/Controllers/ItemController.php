@@ -17,19 +17,17 @@ class ItemController extends Controller
                 $likedItems = auth()->user()->likes()->pluck('item_id');
                 $query->whereIn('id', $likedItems);
 
-                // 検索キーワードがある場合は部分一致検索をさらに適用
                 if ($request->filled('keyword')) {
                     $query->where('name', 'like', '%' . $request->keyword . '%');
                 }
             } else {
-                $query->whereRaw('0 = 1'); // 非ログイン時は空にする
+                $query->whereRaw('0 = 1');
             }
         } else {
             // 自分が出品した商品は除外
             if (auth()->check()) {
                 $query->where('user_id', '!=', auth()->id());
             }
-
             // 検索キーワードがある場合は部分一致検索
             if ($request->filled('keyword')) {
                 $query->where('name', 'like', '%' . $request->keyword . '%');

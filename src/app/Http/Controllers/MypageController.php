@@ -1,9 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Item;
 use Illuminate\Support\Facades\Auth;
-
 use Illuminate\Http\Request;
 
 class MypageController extends Controller
@@ -24,7 +24,7 @@ class MypageController extends Controller
         $user = Auth::user();
         return view('edit_profile', compact('user'));
     }
-    
+
     public function update(Request $request)
     {
         $user = Auth::user();

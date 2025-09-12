@@ -22,7 +22,6 @@ class CreateShippingAddressesTable extends Migration
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      *

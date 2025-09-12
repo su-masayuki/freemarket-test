@@ -15,8 +15,6 @@ class SellController extends Controller
         $categories = \App\Models\Category::all();
         return view('sell', compact('categories'));
     }
-
-
     public function store(Request $request)
     {
         $request->validate([
@@ -29,9 +27,7 @@ class SellController extends Controller
             'description' => 'nullable|string',
             'price' => 'required|integer|min:1',
         ]);
-
         $path = $request->file('image')->store('images/items', 'public');
-
         $item = Item::create([
             'name' => $request->name,
             'brand_name' => $request->brand_name,
@@ -41,9 +37,7 @@ class SellController extends Controller
             'condition' => $request->condition,
             'user_id' => Auth::id(),
         ]);
-
         $item->categories()->attach($request->category_ids);
-
         return redirect()->route('home')->with('success', '商品を出品しました');
     }
 }
