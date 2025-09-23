@@ -7,10 +7,14 @@ body {
 }
 
 .form-container {
-    max-width: 400px;
+    max-width: 680px;
+    height: 656px;
     margin: 80px auto;
     padding: 20px;
     text-align: center;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
 }
 
 .form-title {
@@ -20,7 +24,7 @@ body {
 }
 
 .form-group {
-    margin-bottom: 15px;
+    margin-bottom: 30px;
     text-align: left;
 }
 
@@ -46,6 +50,7 @@ body {
     font-size: 16px;
     cursor: pointer;
     border-radius: 4px;
+    margin-top: 20px;
 }
 
 .form-link {
@@ -62,4 +67,10 @@ body {
     color: red;
     font-size: 13px;
     margin-top: 5px;
+}
+
+.validation-error {
+    color: red;
+    font-size: 14px;
+    margin: 8px 0;
 }

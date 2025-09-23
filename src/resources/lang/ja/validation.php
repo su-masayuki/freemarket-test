@@ -146,5 +146,10 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+    'name' => 'お名前',
+    'zipcode' => '郵便番号',
+    'address' => '住所',
+    'building' => '建物名',
+    ],
 ];

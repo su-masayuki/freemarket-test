@@ -90,6 +90,9 @@
                     @csrf
                     <label for="comment">商品へのコメント</label>
                     <textarea name="body" id="comment" rows="3"></textarea>
+                    @error('body')
+                        <div class="validation-error">{{ $message }}</div>
+                    @enderror
                     <button type="submit" class="submit-comment">コメントを送信する</button>
                 </form>
             </div>

@@ -135,6 +135,12 @@
     padding: 2px;
 }
 
+.validation-error {
+    color: red;
+    font-size: 14px;
+    margin: 8px 0;
+}
+
 @media (max-width: 767px) {
     .item-detail-wrapper {
         flex-direction: column;

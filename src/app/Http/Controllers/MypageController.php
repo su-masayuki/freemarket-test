@@ -10,13 +10,30 @@ class MypageController extends Controller
 {
     public function show()
     {
-        if (request('page') === 'buy') {
-            $items = Auth::user()->purchases ?? collect(); // 購入商品
+        $user = Auth::user();
+        $page = request('page');
+
+        if ($page === 'buy') {
+            $items = $user->purchases ?? collect(); // 購入商品
+        } elseif ($page === 'trading') {
+            $items = Item::where('is_sold', false)
+                ->whereHas('purchases', function ($query) use ($user) {
+                    $query->where('user_id', $user->id);
+                })->get(); // 取引中の商品
         } else {
-            $items = Auth::user()->items ?? collect(); // 出品商品
+            $items = $user->items ?? collect(); // 出品商品
         }
 
-        return view('mypage', compact('items'));
+        $tradingItems = Item::where('is_sold', false)
+            ->whereHas('purchases', function ($query) use ($user) {
+                $query->where('user_id', $user->id);
+            })->get();
+
+        return view('mypage', [
+            'items' => $items,
+            'page' => $page,
+            'tradingItems' => $tradingItems,
+        ]);
     }
 
     public function edit()

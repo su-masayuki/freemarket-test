@@ -76,10 +76,31 @@
 }
 
 .item-card {
+    position: relative; /* for positioning trade-badge */
     background-color: #f0f0f0;
     text-align: center;
     padding: 10px;
     box-sizing: border-box;
+}
+
+.badge {
+    background-color: red;
+    color: #fff;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 12px;
+    margin-left: 4px;
+}
+
+.trade-badge {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    background-color: red;
+    color: #fff;
+    border-radius: 50%;
+    padding: 2px 5px;
+    font-size: 10px;
 }
 
 .item-card img {

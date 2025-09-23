@@ -19,8 +19,11 @@
     </div>
 
     <div class="tab-menu">
-        <a href="{{ url('/mypage?page=sell') }}" class="tab {{ request('page') !== 'buy' ? 'active' : '' }}">出品した商品</a>
+        <a href="{{ url('/mypage?page=sell') }}" class="tab {{ request('page') !== 'buy' && request('page') !== 'trading' ? 'active' : '' }}">出品した商品</a>
         <a href="{{ url('/mypage?page=buy') }}" class="tab {{ request('page') === 'buy' ? 'active' : '' }}">購入した商品</a>
+        <a href="{{ url('/mypage?page=trading') }}" class="tab {{ request('page') === 'trading' ? 'active' : '' }}">
+            取引中の商品 <span class="badge">{{ $tradingItems->count() }}</span>
+        </a>
     </div>
 
     <div class="item-grid">
@@ -33,6 +36,9 @@
                             : Storage::url($item->image_path);
                     @endphp
                     <img src="{{ $imageSrc }}" alt="商品画像">
+                    @if (request('page') === 'trading')
+                        <span class="trade-badge">1</span>
+                    @endif
                     @if ($item->is_sold)
                         <div class="sold-label">SOLD</div>
                     @endif

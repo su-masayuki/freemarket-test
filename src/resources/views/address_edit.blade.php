@@ -15,16 +15,25 @@
         <div class="form-group">
             <label for="zipcode">郵便番号</label>
             <input type="text" name="zipcode" id="zipcode" value="{{ old('zipcode', $user->zipcode) }}">
+            @error('zipcode')
+                <div class="validation-error">{{ $message }}</div>
+            @enderror
         </div>
 
         <div class="form-group">
             <label for="address">住所</label>
             <input type="text" name="address" id="address" value="{{ old('address', $user->address) }}">
+            @error('address')
+                <div class="validation-error">{{ $message }}</div>
+            @enderror
         </div>
 
         <div class="form-group">
             <label for="building">建物名</label>
             <input type="text" name="building" id="building" value="{{ old('building', $user->building) }}">
+            @error('building')
+                <div class="validation-error">{{ $message }}</div>
+            @enderror
         </div>
 
         <button type="submit" class="submit-button">更新する</button>

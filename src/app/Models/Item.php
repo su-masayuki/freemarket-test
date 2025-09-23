@@ -31,4 +31,13 @@ class Item extends Model
     {
         return $this->belongsToMany(Category::class, 'category_item', 'item_id', 'category_id');
     }
+    public function messages()
+    {
+        return $this->hasMany(TransactionMessage::class);
+    }
+
+    public function purchases()
+    {
+        return $this->hasMany(Purchase::class);
+    }
 }

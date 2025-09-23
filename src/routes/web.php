@@ -10,6 +10,7 @@ use App\Http\Controllers\AddressController;
 use App\Http\Controllers\MypageController;
 use App\Http\Controllers\SellController;
 use App\Http\Controllers\StripeWebhookController;
+use App\Http\Controllers\TransactionMessageController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\RedirectResponse;
 
@@ -49,6 +50,10 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/mypage/profile', [MypageController::class, 'update'])->name('mypage.profile.update');
     Route::get('/sell', [SellController::class, 'create'])->name('sell');
     Route::post('/sell', [SellController::class, 'store'])->name('items.store');
+
+    Route::get('/items/{item}/messages', [TransactionMessageController::class, 'index'])->name('transaction_messages.index');
+    Route::post('/items/{item}/messages', [TransactionMessageController::class, 'store'])->name('transaction_messages.store');
+    Route::delete('/messages/{message}', [TransactionMessageController::class, 'destroy'])->name('transaction_messages.destroy');
 });
 
 

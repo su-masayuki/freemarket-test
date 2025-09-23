@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Item;
 use Illuminate\Http\Request;
+use App\Http\Requests\AddressRequest;
 
 class AddressController extends Controller
 {
@@ -13,14 +14,8 @@ class AddressController extends Controller
         return view('address_edit', compact('item', 'user'));
     }
 
-    public function update(Request $request, Item $item)
+    public function update(AddressRequest $request, Item $item)
     {
-        $request->validate([
-            'zipcode' => 'required|string|max:8',
-            'address' => 'required|string|max:255',
-            'building' => 'nullable|string|max:255',
-        ]);
-
         $user = auth()->user();
         $user->zipcode = $request->input('zipcode');
         $user->address = $request->input('address');
