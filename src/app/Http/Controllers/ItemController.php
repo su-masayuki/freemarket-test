@@ -24,11 +24,9 @@ class ItemController extends Controller
                 $query->whereRaw('0 = 1');
             }
         } else {
-            // 自分が出品した商品は除外
             if (auth()->check()) {
                 $query->where('user_id', '!=', auth()->id());
             }
-            // 検索キーワードがある場合は部分一致検索
             if ($request->filled('keyword')) {
                 $query->where('name', 'like', '%' . $request->keyword . '%');
             }
@@ -37,7 +35,7 @@ class ItemController extends Controller
         $items = $query->get();
 
         $keyword = $request->keyword;
-        return view('index', compact('items', 'keyword'));
+        return view('items.index', compact('items', 'keyword'));
     }
 
     public function show(Item $item)

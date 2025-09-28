@@ -17,17 +17,27 @@ class MypageController extends Controller
             $items = $user->purchases ?? collect(); // 購入商品
         } elseif ($page === 'trading') {
             $items = Item::where('is_sold', false)
-                ->whereHas('purchases', function ($query) use ($user) {
-                    $query->where('user_id', $user->id);
-                })->get(); // 取引中の商品
+                ->whereHas('purchases') // 購入者が存在する商品のみ
+                ->where(function ($query) use ($user) {
+                    $query->whereHas('purchases', function ($q) use ($user) {
+                        $q->where('user_id', $user->id);
+                    })
+                    ->orWhere('user_id', $user->id);
+                })
+                ->get();
         } else {
             $items = $user->items ?? collect(); // 出品商品
         }
 
         $tradingItems = Item::where('is_sold', false)
-            ->whereHas('purchases', function ($query) use ($user) {
-                $query->where('user_id', $user->id);
-            })->get();
+            ->whereHas('purchases') // 購入者が存在する商品のみ
+            ->where(function ($query) use ($user) {
+                $query->whereHas('purchases', function ($q) use ($user) {
+                    $q->where('user_id', $user->id);
+                })
+                ->orWhere('user_id', $user->id);
+            })
+            ->get();
 
         return view('mypage', [
             'items' => $items,

@@ -51,6 +51,7 @@ class PurchaseController extends Controller
         }
 
         // Stripe決済セッション作成
+        /*
         Stripe::setApiKey(config('services.stripe.secret'));
 
         if ($request->payment_method === 'card') {
@@ -106,16 +107,19 @@ class PurchaseController extends Controller
                 return back()->withErrors(['stripe' => 'コンビニ支払い用バウチャーの生成に失敗しました。'])->withInput();
             }
         }
+        */
 
-        session([
+        // Stripe決済処理無効化中
+        Purchase::create([
+            'user_id' => $user->id,
+            'item_id' => $item->id,
             'shipping_address_id' => $shipping->id,
         ]);
 
-        if (app()->environment('testing')) {
-            return redirect()->route('purchase.complete', ['item' => $item->id]);
-        }
+        // 商品は取引中扱い
+        session()->forget('shipping_address_id');
 
-        return redirect($redirectUrl);
+        return redirect()->route('transaction_messages.index', $item->id);
     }
 
     public function complete(Item $item)

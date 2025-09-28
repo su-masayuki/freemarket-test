@@ -11,6 +11,7 @@ use App\Http\Controllers\MypageController;
 use App\Http\Controllers\SellController;
 use App\Http\Controllers\StripeWebhookController;
 use App\Http\Controllers\TransactionMessageController;
+use App\Http\Controllers\TransactionController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\RedirectResponse;
 
@@ -53,7 +54,14 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/items/{item}/messages', [TransactionMessageController::class, 'index'])->name('transaction_messages.index');
     Route::post('/items/{item}/messages', [TransactionMessageController::class, 'store'])->name('transaction_messages.store');
-    Route::delete('/messages/{message}', [TransactionMessageController::class, 'destroy'])->name('transaction_messages.destroy');
+    Route::delete('/items/{item}/messages/{message}', [TransactionMessageController::class, 'destroy'])
+    ->name('transaction_messages.destroy');
+
+    Route::get('/items/{item}/messages/{message}/edit', [TransactionMessageController::class, 'edit'])->name('transaction_messages.edit');
+    Route::put('/items/{item}/messages/{message}', [TransactionMessageController::class, 'update'])->name('transaction_messages.update');
+
+    Route::post('/transactions/{item}/complete', [TransactionController::class, 'complete'])->name('transactions.complete');
+    Route::post('/transactions/{item}/rate', [TransactionController::class, 'rate'])->name('transactions.rate');
 });
 
 

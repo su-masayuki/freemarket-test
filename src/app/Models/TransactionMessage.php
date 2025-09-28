@@ -25,4 +25,11 @@ class TransactionMessage extends Model
     {
         return $this->belongsTo(User::class, 'sender_id');
     }
+
+    public function reads()
+    {
+        // Relationship placeholder for message reads
+        // Replace with TransactionMessageRead::class if you add a model
+        return $this->hasMany(TransactionMessageRead::class, 'message_id');
+    }
 }
