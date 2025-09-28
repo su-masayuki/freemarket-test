@@ -109,4 +109,4 @@ https://docs.stripe.com/payments/checkout?locale=ja-JP
 
 ## ER図
 
-![alt](docs/ER.png)
+![alt](ER.png)
