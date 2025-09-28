@@ -194,6 +194,11 @@ document.addEventListener("DOMContentLoaded", function() {
     chatForm.addEventListener('submit', function() {
         sessionStorage.removeItem(storageKey);
     });
+
+    const chatArea = document.querySelector('.chat-area');
+    if (chatArea) {
+        chatArea.scrollTop = chatArea.scrollHeight;
+    }
 });
 </script>
 @endsection
