@@ -109,4 +109,4 @@ php artisan test
 
 ## ER図
 
-![alt](er.drawio.png)
+![alt](er.png)
