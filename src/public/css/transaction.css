@@ -2,12 +2,12 @@
     display: flex;
     gap: 20px;
     max-width: 1600px;
-    margin: 20px auto;
-    padding: 10px;
+    height: 100%;
+
 }
 
 .transaction-sidebar {
-    width: 200px;
+    width: 300px;
     background-color: #868686;
     padding: 16px 14px;
     border-right: 1px solid #ddd;
