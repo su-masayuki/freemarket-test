@@ -105,7 +105,7 @@ https://docs.stripe.com/payments/checkout?locale=ja-JP
 以下のコマンドで PHPUnit テストを実行できます：
 
 ```sh
-php artisan test
+'php artisan test
 
 ## ER図
 
