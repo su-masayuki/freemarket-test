@@ -110,7 +110,7 @@
             <form id="chat-form" action="{{ route('transaction_messages.store', $item->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="message_id" id="edit-message-id">
-                <input type="text" name="message" id="chat-message-input" placeholder="取引メッセージを記入してください" maxlength="500" value="{{ old('message') }}">
+                <input type="text" name="message" id="chat-message-input" placeholder="取引メッセージを記入してください" maxlength="500" value="{{ old('message') }}" style="width: 80%;">
                 <label for="image-upload" class="btn-add-image">画像を追加</label>
                 <input id="image-upload" type="file" name="image" accept="image/*" style="display:none;">
                 <button type="submit" class="btn-submit">

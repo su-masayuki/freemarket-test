@@ -196,6 +196,10 @@
     
 }
 
+.chat-form form{
+    width: 1000px;
+}
+
 .chat-form button {
     background-color: #007bff;
     color: #fff;
