@@ -110,7 +110,7 @@
             <form id="chat-form" action="{{ route('transaction_messages.store', $item->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="message_id" id="edit-message-id">
-                <input type="text" name="message" id="chat-message-input" placeholder="取引メッセージを記入してください" maxlength="400" value="{{ old('message') }}">
+                <input type="text" name="message" id="chat-message-input" placeholder="取引メッセージを記入してください" maxlength="500" value="{{ old('message') }}">
                 <label for="image-upload" class="btn-add-image">画像を追加</label>
                 <input id="image-upload" type="file" name="image" accept="image/*" style="display:none;">
                 <button type="submit" class="btn-submit">
@@ -178,6 +178,22 @@ document.addEventListener("DOMContentLoaded", function() {
             console.log('rating form submitted');
         });
     }
+
+    const chatInput = document.getElementById('chat-message-input');
+    const storageKey = "chat-message-input-{{ $item->id }}";
+
+    if (sessionStorage.getItem(storageKey)) {
+        chatInput.value = sessionStorage.getItem(storageKey);
+    }
+
+    chatInput.addEventListener('input', function() {
+        sessionStorage.setItem(storageKey, chatInput.value);
+    });
+
+    const chatForm = document.getElementById('chat-form');
+    chatForm.addEventListener('submit', function() {
+        sessionStorage.removeItem(storageKey);
+    });
 });
 </script>
 @endsection

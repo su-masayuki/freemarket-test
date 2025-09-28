@@ -8,24 +8,18 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use App\Models\TransactionRating;
 
+use Illuminate\Support\Facades\Mail;
+
 class TransactionController extends Controller
 {
-    /**
-     * 取引を完了する（購入者が押す）
-     */
     public function complete(Item $item)
     {
-        // 完了後に評価モーダルを表示するフラグをセット
         Session::flash('showRatingModal', true);
 
-        // 取引チャット画面にリダイレクト
         return redirect()->route('transaction_messages.index', $item->id)
             ->with('status', '取引を完了しました。');
     }
 
-    /**
-     * 取引相手を評価する
-     */
     public function rate(Request $request, Item $item)
     {
         // $request->validate([
@@ -43,6 +37,13 @@ class TransactionController extends Controller
         if ($item->user_id !== Auth::id()) {
             $item->is_sold = true;
             $item->save();
+            Mail::raw(
+                "商品「{$item->name}」の取引が完了しました。",
+                function ($message) use ($item) {
+                    $message->to($item->user->email)
+                            ->subject('【取引完了通知】' . $item->name);
+                }
+            );
         }
 
         if ($item->user_id === Auth::id()) {

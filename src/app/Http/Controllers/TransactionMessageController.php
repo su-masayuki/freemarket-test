@@ -20,21 +20,21 @@ class TransactionMessageController extends Controller
 
         $user = Auth::user();
         $tradingItems = Item::where('is_sold', false)
-            ->whereHas('purchases') // 購入者が存在する商品のみ
+            ->whereHas('purchases') 
             ->where(function ($query) use ($user) {
-                // 購入者として関わっている商品
+              
                 $query->whereHas('purchases', function ($q) use ($user) {
                     $q->where('user_id', $user->id);
                 });
             })
             ->orWhere(function ($query) use ($user) {
-                // 出品者として関わっている商品（必ず購入者が存在する）
+                
                 $query->where('user_id', $user->id)
                       ->whereHas('purchases');
             })
             ->get();
 
-        // 既読処理を追加
+    
         foreach ($messages as $message) {
             DB::table('transaction_messages_reads')->updateOrInsert(
                 ['message_id' => $message->id, 'user_id' => Auth::id()],
@@ -69,17 +69,15 @@ class TransactionMessageController extends Controller
     {
         $message = TransactionMessage::findOrFail($messageId);
 
-        // 本人以外は削除できない
+      
         if ($message->sender_id !== Auth::id()) {
             abort(403);
         }
 
-        // 対象メッセージが指定の商品に紐づいているか確認
         if ($message->item_id != $itemId) {
             abort(404);
         }
 
-        // 最後に送ったメッセージのみ削除可能
         $latestMessage = TransactionMessage::where('item_id', $itemId)
             ->where('sender_id', Auth::id())
             ->latest()
@@ -89,7 +87,6 @@ class TransactionMessageController extends Controller
             return back()->with('error', '最後に送ったメッセージのみ削除可能です。');
         }
 
-        // 画像があれば削除
         if ($message->image_path) {
             Storage::disk('public')->delete($message->image_path);
         }
