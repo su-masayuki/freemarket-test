@@ -24,7 +24,6 @@ class AddressRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
             'zipcode' => [
                 'required',
                 'size:8',
