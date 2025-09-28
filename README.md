@@ -56,6 +56,14 @@
 - コメント機能
 - いいね機能
 - プロフィール確認・編集
+  
+### 新機能
+- 取引チャット機能
+- メッセージ編集・削除機能
+- 未読メッセージ通知
+- 取引完了時の評価機能
+- 取引完了時に出品者へのメール通知
+
 
 ## 重要なコマンド
 
@@ -95,8 +103,10 @@ https://docs.stripe.com/payments/checkout?locale=ja-JP
 - phpMyAdmin: http://localhost:8080
 
 ## デモログイン情報（開発用）
-
-初期シーディングでテストユーザーが1人登録されますが、メールアドレスはランダム生成（例: `taro64ffb19f4b8b7@example.com`）となるため、ログイン確認にはデータベースから直接確認してください。
+初期シーディングで以下の3人のテストユーザーが登録されます。
+- テスト太郎 (taro@example.com / password) 郵便番号: 123-4567, 住所: 東京都新宿区1-1-1  
+- テスト次郎 (jiro@example.com / password) 郵便番号: 234-5678, 住所: 大阪府大阪市2-2-2  
+- テスト三郎 (saburo@example.com / password) 郵便番号: 345-6789, 住所: 愛知県名古屋市3-3-3  
 
 パスワードは共通で `password` に設定されています。
 
@@ -105,7 +115,7 @@ https://docs.stripe.com/payments/checkout?locale=ja-JP
 以下のコマンドで PHPUnit テストを実行できます：
 
 ```
-php artisan test'
+php artisan test
 ```
 
 ## ER図
