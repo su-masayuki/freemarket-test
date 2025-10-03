@@ -15,8 +15,16 @@ class TransactionMessageController extends Controller
     public function index($itemId)
     {
         $item = Item::with('user')->findOrFail($itemId);
-        $messages = $item->messages()->with('sender')->latest()->get();
+        $messages = \App\Models\TransactionMessage::where('item_id', $item->id)
+            ->with('sender')
+            ->latest()
+            ->get();
         $isSeller = $item->user_id === Auth::id();
+
+        // Fetch transaction rating for the item
+        $rating = \App\Models\TransactionRating::where('item_id', $item->id)->first();
+        $buyerCompleted = $rating ? $rating->buyer_completed : false;
+        $sellerCompleted = $rating ? $rating->seller_completed : false;
 
         $user = Auth::user();
         $tradingItems = Item::where('is_sold', false)
@@ -42,7 +50,7 @@ class TransactionMessageController extends Controller
             );
         }
 
-        return view('transaction.index', compact('item', 'messages', 'isSeller', 'tradingItems'));
+        return view('transaction.index', compact('item', 'messages', 'isSeller', 'tradingItems', 'buyerCompleted', 'sellerCompleted'));
     }
 
     public function store(TransactionMessageRequest $request, $itemId)

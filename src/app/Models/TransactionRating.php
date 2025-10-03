@@ -15,5 +15,7 @@ class TransactionRating extends Model
         'ratee_id',
         'rating',
         'comment',
+        'buyer_completed',
+        'seller_completed',
     ];
 }

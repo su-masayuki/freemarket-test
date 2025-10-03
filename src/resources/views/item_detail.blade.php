@@ -45,9 +45,12 @@
                 </span>
             </div>
 
-            <form action="{{ url('/purchase/' . $item->id) }}" method="GET">
-                <button class="buy-button">購入手続きへ</button>
-            </form>
+            @if (auth()->check() && auth()->id() !== $item->user_id)
+                <form action="{{ url('/purchase/' . $item->id) }}" method="GET">
+                    <button class="buy-button">購入手続きへ</button>
+                </form>
+            @else
+            @endif
 
             <div class="item-description">
                 <h3>商品説明</h3>

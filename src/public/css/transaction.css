@@ -3,7 +3,7 @@
     gap: 20px;
     max-width: 1600px;
     height: 100vh;
-
+    align-items: stretch;
 }
 
 .transaction-sidebar {
@@ -15,6 +15,9 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+    height: 100vh;
+    overflow-y: auto;
+    flex-shrink: 0;
 }
 
 .transaction-sidebar h3 {
@@ -53,6 +56,8 @@
 
 .transaction-main {
     flex: 1;
+    min-width: 0;
+    overflow-y: auto;
 }
 
 .transaction-header {
@@ -115,7 +120,7 @@
 
 .chat-message {
     margin-bottom: 12px;
-    max-width: 70%;
+    max-width: 80%;
 }
 
 .my-message {
@@ -180,8 +185,16 @@
 
 .chat-form {
     display: flex;
-    gap: 10px;
     align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.chat-form form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
 }
 
 .chat-form input[type="text"] {
@@ -191,16 +204,8 @@
     border-radius: 4px;
 }
 
-.chat-form input[type="file"] {
-    flex: 0 0 auto;
-    
-}
-
-.chat-form form{
-    width: 1000px;
-}
-
 .chat-form button {
+    flex: 0 0 auto;
     background-color: #007bff;
     color: #fff;
     border: none;
@@ -211,11 +216,6 @@
 
 .chat-form button:hover {
     background-color: #0069d9;
-}
-
-img{
-    width: 200px;
-    height: 200px;
 }
 
 .chat-icon {
@@ -301,4 +301,73 @@ img{
 }
 .btn-rate:hover {
     background-color: #e04a4a;
+}
+
+img{
+    width: 200px;
+    height: 200px;
+}
+
+@media (max-width: 850px) {
+    .transaction-container {
+        flex-direction: row;
+        height: 100vh;
+    }
+
+    .transaction-sidebar {
+        width: 220px;
+        height: 100vh;
+        min-width: 220px;
+        max-width: 220px;
+        margin-bottom: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .transaction-list {
+        display: block;
+        width: 100%;
+    }
+    .transaction-list li {
+        margin-bottom: 12px;
+    }
+    .transaction-list a {
+        display: block;
+        width: 100%;
+    }
+
+    .transaction-main {
+        width: auto;
+        flex: 1;
+        height: 100vh;
+    }
+
+    .item-image {
+        width: 100% !important;
+        max-width: 260px;
+        height: auto !important;
+        margin: 0 0 20px 0;
+        display: block;
+    }
+}
+
+@media (min-width: 1700px) {
+    .transaction-container {
+        max-width: 90%;
+        margin: 0 auto;
+    }
+
+    .transaction-sidebar {
+        width: 280px;
+    }
+
+    .item-image {
+        width: 280px !important;
+        height: auto !important;
+    }
+
+    .chat-form form {
+        width: 90%;
+    }
 }

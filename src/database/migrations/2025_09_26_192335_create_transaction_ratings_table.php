@@ -20,6 +20,8 @@ class CreateTransactionRatingsTable extends Migration
             $table->unsignedBigInteger('ratee_id');
             $table->tinyInteger('rating');
             $table->text('comment')->nullable(); 
+            $table->boolean('buyer_completed')->default(false);
+            $table->boolean('seller_completed')->default(false);
             $table->timestamps();
         });
     }

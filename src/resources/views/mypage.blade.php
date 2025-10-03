@@ -16,13 +16,13 @@
             <h2 class="user-name">{{ Auth::user()->name }}</h2>
             <div class="user-rating">
                 @php
-                    $averageRating = $averageRating ?? 0;
+                    $averageRating = isset($averageRating) ? round($averageRating) : 0;
                 @endphp
                 @for ($i = 1; $i <= 5; $i++)
                     @if ($i <= $averageRating)
-                        <span class="star filled">★</span>
+                        <span class="star filled" style="color:#FFF048;">★</span>
                     @else
-                        <span class="star">☆</span>
+                        <span class="star empty" style="color:#D9D9D9;">★</span>
                     @endif
                 @endfor
             </div>

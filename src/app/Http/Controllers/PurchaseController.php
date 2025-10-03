@@ -14,7 +14,7 @@ class PurchaseController extends Controller
 {
     public function show(Item $item)
     {
-        $user = Auth::user(); // 現在ログイン中のユーザー
+        $user = Auth::user(); 
         return view('purchase', compact('item', 'user'));
     }
 
@@ -22,12 +22,10 @@ class PurchaseController extends Controller
     {
         $user = Auth::user();
 
-        // 支払い方法のバリデーション
         $request->validate([
             'payment_method' => 'required',
         ]);
 
-        // 新しい配送先住所を保存
         $shipping = null;
 
         if ($request->filled('zipcode') && $request->filled('address')) {
@@ -50,7 +48,7 @@ class PurchaseController extends Controller
             return back()->withErrors(['shipping_address_id' => '配送先を指定してください。'])->withInput();
         }
 
-        // Stripe決済セッション作成
+        // Stripe決済セッション
         /*
         Stripe::setApiKey(config('services.stripe.secret'));
 
@@ -116,7 +114,6 @@ class PurchaseController extends Controller
             'shipping_address_id' => $shipping->id,
         ]);
 
-        // 商品は取引中扱い
         session()->forget('shipping_address_id');
 
         return redirect()->route('transaction_messages.index', $item->id);
@@ -134,7 +131,6 @@ class PurchaseController extends Controller
             return redirect()->route('home')->with('status', 'この商品はすでに購入済みです。');
         }
 
-        // Retrieve shipping_address_id from session
         $shippingAddressId = session('shipping_address_id');
 
         if (! $shippingAddressId) {
@@ -151,11 +147,9 @@ class PurchaseController extends Controller
             }
         }
 
-        // 商品を購入済みに設定
         $item->is_sold = true;
         $item->save();
 
-        // 購入記録を保存
         Purchase::create([
             'user_id' => $user->id,
             'item_id' => $item->id,

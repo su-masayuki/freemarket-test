@@ -24,7 +24,7 @@
     </div>
     <div class="transaction-main">
         <div class="transaction-top">
-            @if (! $isSeller)
+            @if (! $isSeller && ! $buyerCompleted)
                 <form method="POST" action="{{ route('transactions.complete', $item->id) }}">
                     @csrf
                     <button type="submit" class="btn-complete">取引を完了する</button>
@@ -168,7 +168,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
-    @if(session('showRatingModal'))
+    @if (session('showRatingModal') || session('showSellerRatingModal') || ($isSeller && $buyerCompleted && !$sellerCompleted))
         document.getElementById('rating-modal').style.display = 'flex';
     @endif
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Item;
+use App\Models\TransactionRating;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -11,13 +12,18 @@ class MypageController extends Controller
     public function show()
     {
         $user = Auth::user();
+        $averageRating = round(TransactionRating::where('ratee_id', $user->id)->avg('rating'));
         $page = request('page');
 
         if ($page === 'buy') {
-            $items = $user->purchases ?? collect(); // 購入商品
+            $items = Item::where('is_sold', true)
+                ->whereHas('purchases', function ($q) use ($user) {
+                    $q->where('user_id', $user->id);
+                })
+                ->get(); 
         } elseif ($page === 'trading') {
             $items = Item::where('is_sold', false)
-                ->whereHas('purchases') // 購入者が存在する商品のみ
+                ->whereHas('purchases') 
                 ->where(function ($query) use ($user) {
                     $query->whereHas('purchases', function ($q) use ($user) {
                         $q->where('user_id', $user->id);
@@ -26,11 +32,11 @@ class MypageController extends Controller
                 })
                 ->get();
         } else {
-            $items = $user->items ?? collect(); // 出品商品
+            $items = $user->items ?? collect(); 
         }
 
         $tradingItems = Item::where('is_sold', false)
-            ->whereHas('purchases') // 購入者が存在する商品のみ
+            ->whereHas('purchases')
             ->where(function ($query) use ($user) {
                 $query->whereHas('purchases', function ($q) use ($user) {
                     $q->where('user_id', $user->id);
@@ -43,6 +49,7 @@ class MypageController extends Controller
             'items' => $items,
             'page' => $page,
             'tradingItems' => $tradingItems,
+            'averageRating' => $averageRating,
         ]);
     }
 
